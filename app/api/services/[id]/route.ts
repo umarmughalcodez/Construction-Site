@@ -1,27 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/db.config";
 
-export async function PUT(
-  req: Request,
+export const PUT = async (
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
-    const { title, description, images } = await req.json();
     const { id } = await params;
+    const { title, description, images } = await req.json();
     if (!title || !description || !images) {
-      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
     }
-    const updated = await prisma.services.update({
+    const updatedService = await prisma.services.update({
       where: { id: Number(id) },
-      data: { title, description, imageUrl: images },
+      data: {
+        title,
+        description,
+        imageUrl: images,
+      },
     });
-    return NextResponse.json(updated);
+    return NextResponse.json(updatedService, { status: 200 });
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
+    console.error("Error updating service:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
-}
+};
 
 export async function DELETE(
   req: Request,
