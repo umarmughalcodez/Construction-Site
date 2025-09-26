@@ -33,19 +33,25 @@ export const PUT = async (
 };
 
 export async function DELETE(
-  req: Request,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params;
     await prisma.services.delete({ where: { id: Number(id) } });
-    return NextResponse.json({ message: "Deleted successfully" });
+    return NextResponse.json(
+      { message: "Deleted successfully" },
+      { status: 200 }
+    );
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
+    console.error("Error deleting service:", error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
+
 export const GET = async (
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
