@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import img from "@/public/Rectangle 1 (2).png";
 import { useParams } from "next/navigation";
 import { type Project } from "@/types/Project";
@@ -9,15 +9,14 @@ const Project = () => {
   const params = useParams();
   const [project, setProject] = useState<Project | null>(null);
 
-  useEffect(() => {
-    fetchProject();
-  }, []);
-
-  const fetchProject = async () => {
+  const fetchProject = useCallback(async () => {
     const res = await fetch(`/api/projects/${params.id}`);
     const data = await res.json();
     setProject(data.project);
-  };
+  }, []);
+  useEffect(() => {
+    fetchProject();
+  }, [fetchProject]);
 
   return (
     <div>

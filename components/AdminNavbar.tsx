@@ -3,7 +3,6 @@ import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "./ui/button";
 import toast from "react-hot-toast";
-import Link from "next/link";
 
 const AdminNavbar = () => {
   const router = useRouter();

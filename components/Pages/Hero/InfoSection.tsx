@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import mapImg from "@/public/map.png";
+import mapImg from "@/public/map1.png";
 import phone from "@/public/telephone.svg";
 import msg from "@/public/chat.svg";
 import bottom_img from "@/public/img11.png";

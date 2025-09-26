@@ -8,12 +8,13 @@ export const GET = async () => {
         createdAt: "desc",
       },
     });
-
     return NextResponse.json(projects);
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
+    console.error("Error fetching projects:", error);
+    return NextResponse.json(
+      { status: 500, error: "Internal server error" },
+      { status: 500 }
+    );
   }
 };
 
@@ -21,13 +22,12 @@ export const POST = async (req: NextRequest) => {
   try {
     const { title, description, images, clientName, dateCompleted, category } =
       await req.json();
-
     if (!title || !description || !images || !clientName || !category) {
-      return NextResponse.json({
-        status: 400,
-      });
+      return NextResponse.json(
+        { status: 400, error: "Please provide all required fields" },
+        { status: 400 }
+      );
     }
-
     await prisma.projects.create({
       data: {
         title,
@@ -38,11 +38,12 @@ export const POST = async (req: NextRequest) => {
         category,
       },
     });
-
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
+    console.error("Error creating project:", error);
+    return NextResponse.json(
+      { status: 500, error: "Internal server error" },
+      { status: 500 }
+    );
   }
 };
