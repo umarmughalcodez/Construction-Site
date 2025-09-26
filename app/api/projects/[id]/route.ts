@@ -31,9 +31,11 @@ export const PUT = async (
 
     return NextResponse.json({ status: 200, success: true });
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
+    console.error("Error updating project:", error);
+    return NextResponse.json({
+      status: 500,
+      error: "Internal server error",
+    });
   }
 };
 
