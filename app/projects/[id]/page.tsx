@@ -9,15 +9,15 @@ const Project = () => {
   const params = useParams();
   const [project, setProject] = useState<Project | null>(null);
 
+  useEffect(() => {
+    fetchProject();
+  }, []);
+
   const fetchProject = async () => {
     const res = await fetch(`/api/projects/${params.id}`);
     const data = await res.json();
     setProject(data.project);
   };
-
-  useEffect(() => {
-    fetchProject();
-  }, []);
 
   return (
     <div>

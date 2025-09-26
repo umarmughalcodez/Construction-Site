@@ -9,10 +9,9 @@ export async function GET() {
 
     return NextResponse.json(services);
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to fetch services" },
-      { status: 500 }
-    );
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 }
 
@@ -30,9 +29,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ status: 200 });
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to create service" },
-      { status: 500 }
-    );
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 }

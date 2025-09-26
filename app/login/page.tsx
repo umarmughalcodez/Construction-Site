@@ -1,14 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,9 +24,6 @@ export default function LoginPage() {
     } else {
       toast.error(data.message);
     }
-    // if ((data.message = "Login successful")) {
-    // } else {
-    // }
 
     if (data.success) {
       window.location.href = "/admin";
@@ -44,8 +38,6 @@ export default function LoginPage() {
         className="bg-white shadow-lg rounded-2xl p-8 w-96"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Admin Login</h2>
-
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
         <input
           type="email"

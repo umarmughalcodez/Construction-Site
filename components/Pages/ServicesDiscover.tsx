@@ -1,6 +1,5 @@
 "use client";
 import { Service } from "@/types/Service";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaArrowRight } from "react-icons/fa";

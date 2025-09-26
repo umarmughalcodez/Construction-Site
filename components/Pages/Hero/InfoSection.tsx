@@ -6,7 +6,7 @@ import phone from "@/public/telephone.svg";
 import msg from "@/public/chat.svg";
 import bottom_img from "@/public/img11.png";
 import { motion } from "framer-motion";
-import { fadeUp, fadeRight, fadeLeft } from "@/lib/animations";
+import { fadeUp, fadeRight } from "@/lib/animations";
 
 const InfoSection = () => {
   return (

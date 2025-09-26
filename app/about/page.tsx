@@ -49,7 +49,7 @@ const AboutPage = () => {
         />
         <div className="flex-col space-y-5">
           <p className="text-3xl text-[#00215B] max-w-sm ">
-            We're providing the best customer service
+            We&apos;re providing the best customer service
           </p>
           <div className="bg-gray-100 max-w-sm text-black/80 flex-col flex space-y-4 p-6">
             <span className="">

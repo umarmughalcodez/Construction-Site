@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import React from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const Admin = () => {
   const router = useRouter();

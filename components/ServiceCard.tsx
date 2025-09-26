@@ -8,7 +8,12 @@ export default function ServiceCard({
   onEdit,
   onDelete,
 }: {
-  service: { id: number; title: string; description: string; imageUrl: string };
+  service: {
+    id: number;
+    title: string;
+    description: string;
+    imageUrl: string[];
+  };
   onEdit: () => void;
   onDelete: () => void;
 }) {
@@ -22,7 +27,6 @@ export default function ServiceCard({
               alt={service.title}
               fill
               className="object-cover rounded"
-              loading="lazy"
             />
           )}
           {/* {service.imageUrl && (
@@ -31,12 +35,12 @@ export default function ServiceCard({
         </div>
         <h2 className="font-semibold">
           {service.title.length > 30
-            ? service.title.slice(0, 30) + "..."
+            ? service.title.slice(1, 30) + "..."
             : service.title}
         </h2>
         <p className="text-gray-600">
           {service.description.length > 30
-            ? service.description.slice(0, 30) + "..."
+            ? service.description.slice(1, 30) + "..."
             : service.description}
         </p>
         <div className="space-x-2">

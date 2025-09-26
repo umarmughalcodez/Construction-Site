@@ -17,10 +17,9 @@ export async function PUT(
     });
     return NextResponse.json(updated);
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to update service" },
-      { status: 500 }
-    );
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 }
 
@@ -33,10 +32,9 @@ export async function DELETE(
     await prisma.services.delete({ where: { id: Number(id) } });
     return NextResponse.json({ message: "Deleted successfully" });
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to delete service" },
-      { status: 500 }
-    );
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 }
 

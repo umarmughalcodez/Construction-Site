@@ -15,6 +15,10 @@ const ServicesDynamic = () => {
   const { id } = useParams();
   const router = useRouter();
 
+  useEffect(() => {
+    fetchService();
+  }, []);
+
   const fetchService = async () => {
     try {
       const res = await fetch(`/api/services/${id}`);
@@ -28,10 +32,6 @@ const ServicesDynamic = () => {
       }
     }
   };
-
-  useEffect(() => {
-    fetchService();
-  }, []);
 
   return (
     <div>

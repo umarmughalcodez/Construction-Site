@@ -1,7 +1,7 @@
 import prisma from "@/prisma/db.config";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   try {
     const projects = await prisma.projects.findMany({
       orderBy: {

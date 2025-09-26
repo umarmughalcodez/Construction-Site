@@ -6,16 +6,38 @@ import ServiceCard from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 import AdminNavbar from "@/components/AdminNavbar";
 
+export interface Service {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string[];
+}
+
 export default function ServicesCRUD() {
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [editService, setEditService] = useState<any | null>(null);
+  const [editService, setEditService] = useState<Service | null>(null);
 
   const fetchServices = async () => {
-    const res = await fetch("/api/services");
-    const data = await res.json();
-    setServices(data);
+    try {
+      const res = await fetch("/api/services");
+      const data = await res.json();
+      console.log("DATA", data);
+
+      // Ensure it's an array
+      if (Array.isArray(data)) {
+        setServices(data);
+      } else if (data.services && Array.isArray(data.services)) {
+        setServices(data.services);
+      } else {
+        setServices([]); // fallback to empty array
+        console.error("Unexpected API response format:", data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch services:", err);
+      setServices([]);
+    }
   };
 
   useEffect(() => {
@@ -23,8 +45,6 @@ export default function ServicesCRUD() {
   }, []);
 
   const handleSubmit = async (formData: FormData) => {
-    const imageUrl = formData.getAll("images[]");
-
     setLoading(true);
     try {
       const imageUrl = formData.getAll("images[]");
@@ -58,7 +78,9 @@ export default function ServicesCRUD() {
       setEditService(null);
       fetchServices();
     } catch (err) {
-      toast.error("Something went wrong!");
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -95,6 +117,7 @@ export default function ServicesCRUD() {
               key={s.id}
               service={s}
               onEdit={() => {
+                console.log("Edit Service", s);
                 setEditService(s);
                 setIsOpen(true);
               }}

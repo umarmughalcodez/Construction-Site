@@ -37,10 +37,7 @@ export const PUT = async (
   }
 };
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   await prisma.projects.delete({
     where: {

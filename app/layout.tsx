@@ -1,21 +1,11 @@
 import type { Metadata } from "next";
-import { Kanit, Poppins, League_Spartan } from "next/font/google";
+import { Kanit } from "next/font/google";
 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const kanit = Kanit({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
-const league_spartan = League_Spartan({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
-const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
 });
