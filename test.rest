@@ -1,0 +1,13 @@
+
+
+POST http://localhost:3000/api/sendQuote
+Content-Type: application/json
+
+{
+    "f_name": "Umar",
+    "l_name": "Mughal",
+    "email": "test@gmail.com",
+    "phone": "0327666",
+    "subject": "....",
+    "message": "Hello World!"
+}
