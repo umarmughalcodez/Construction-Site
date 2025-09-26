@@ -1,5 +1,4 @@
-"use client";
-
+// /components/Pages/Hero/RoofingServices.tsx
 import Image, { StaticImageData } from "next/image";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
