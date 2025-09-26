@@ -2,12 +2,12 @@ import prisma from "@/prisma/db.config";
 import { NextRequest, NextResponse } from "next/server";
 
 // ✅ Update project
-export const PUT = async (
+export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
-) => {
+  context: { params: { id: string } }
+) {
   try {
-    const { id } = params;
+    const { id } = context.params;
     const { title, description, images, clientName, category, dateCompleted } =
       await req.json();
 
@@ -37,15 +37,15 @@ export const PUT = async (
     }
     return NextResponse.json({ error: "Unknown error" }, { status: 500 });
   }
-};
+}
 
 // ✅ Delete project
-export const DELETE = async (
+export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
-) => {
+  context: { params: { id: string } }
+) {
   try {
-    const { id } = params;
+    const { id } = context.params;
     await prisma.projects.delete({
       where: { id: Number(id) },
     });
@@ -56,15 +56,15 @@ export const DELETE = async (
     }
     return NextResponse.json({ error: "Unknown error" }, { status: 500 });
   }
-};
+}
 
 // ✅ Get project by ID
-export const GET = async (
+export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
-) => {
+  context: { params: { id: string } }
+) {
   try {
-    const { id } = params;
+    const { id } = context.params;
     const project = await prisma.projects.findUnique({
       where: { id: Number(id) },
     });
@@ -80,4 +80,4 @@ export const GET = async (
     }
     return NextResponse.json({ error: "Unknown error" }, { status: 500 });
   }
-};
+}
