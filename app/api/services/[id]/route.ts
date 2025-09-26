@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/db.config";
 
 export async function PUT(
@@ -37,32 +37,27 @@ export async function DELETE(
     }
   }
 }
-
-export async function GET(
-  _req: Request,
+export const GET = async (
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
     const { id } = await params;
-    console.log(id);
     const service = await prisma.services.findUnique({
-      where: {
-        id: Number(id),
-      },
+      where: { id: Number(id) },
     });
-
     if (!service) {
-      return NextResponse.json({ status: 400, message: "Service Not found" });
+      return NextResponse.json(
+        { status: 404, message: "Service not found" },
+        { status: 404 }
+      );
     }
-
-    return NextResponse.json({
-      status: 200,
-      message: "Fetched Service Successfully!",
-      service,
-    });
+    return NextResponse.json(service);
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
+    console.error("Error fetching service:", error);
+    return NextResponse.json(
+      { status: 500, message: "Internal server error" },
+      { status: 500 }
+    );
   }
-}
+};
