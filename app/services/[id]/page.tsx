@@ -24,7 +24,7 @@ const ServicesDynamic = () => {
       const res = await fetch(`/api/services/${id}`);
       if (res.ok) {
         const data = await res.json();
-        setService(data.service);
+        setService(data);
       }
     } catch (error) {
       if (error instanceof Error) {

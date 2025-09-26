@@ -23,7 +23,6 @@ export default function ServicesCRUD() {
     try {
       const res = await fetch("/api/services");
       const data = await res.json();
-      console.log("DATA", data);
 
       // Ensure it's an array
       if (Array.isArray(data)) {
@@ -117,7 +116,6 @@ export default function ServicesCRUD() {
               key={s.id}
               service={s}
               onEdit={() => {
-                console.log("Edit Service", s);
                 setEditService(s);
                 setIsOpen(true);
               }}
