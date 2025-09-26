@@ -1,3 +1,4 @@
+// /components/Pages/Hero/AboutUs.tsx
 import React from "react";
 import RoofingServices from "./RoofingServices";
 import hazard from "@/public/Group 53.svg";
@@ -11,7 +12,7 @@ import About2 from "./About2";
 const AboutUs = () => {
   return (
     <>
-      <div className="mt-36 w-full h-auto  grid place-items-center pt-10 pb-10 p-8">
+      <div className="mt-36 w-full h-auto grid place-items-center pt-10 pb-10 p-8">
         <p className="text-2xl font-semibold p-3">
           Our Comprehensive Roofing Services
         </p>
@@ -21,7 +22,7 @@ const AboutUs = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
           <RoofingServices
-            image={hazard}
+            image={hazard.src} // Pass URL string
             heading="New Roof Installation"
             text={[
               "Premium Metal Roofing",
@@ -30,7 +31,7 @@ const AboutUs = () => {
             ]}
           />
           <RoofingServices
-            image={puzzle}
+            image={puzzle.src}
             heading="Expert Roof Repairs"
             text={[
               "Emergency Leak Repairs",
@@ -39,7 +40,7 @@ const AboutUs = () => {
             ]}
           />
           <RoofingServices
-            image={recover}
+            image={recover.src}
             heading="Complete Restoration"
             text={[
               "Professional Cleaning",
@@ -48,7 +49,7 @@ const AboutUs = () => {
             ]}
           />
           <RoofingServices
-            image={carpentry}
+            image={carpentry.src}
             heading="Carpentry Services"
             text={[
               "Door Installation",
@@ -60,7 +61,7 @@ const AboutUs = () => {
             ]}
           />
           <RoofingServices
-            image={services}
+            image={services.src}
             heading="Renovation Services"
             text={[
               "Complete Home Renovations",
@@ -69,7 +70,7 @@ const AboutUs = () => {
             ]}
           />
           <RoofingServices
-            image={renovate}
+            image={renovate.src}
             heading="Renovation Carpentry"
             text={[
               "Residential Renovations",

@@ -1,5 +1,6 @@
 // /components/Pages/Hero/RoofingServices.tsx
-import Image, { StaticImageData } from "next/image";
+"use client";
+import Image from "next/image";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -9,7 +10,7 @@ const RoofingServices = ({
   heading,
   text,
 }: {
-  image: StaticImageData;
+  image: string; // Change to string for image URL
   heading: string;
   text: string[];
 }) => {
