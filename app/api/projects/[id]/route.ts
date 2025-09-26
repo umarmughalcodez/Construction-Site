@@ -1,24 +1,24 @@
 import prisma from "@/prisma/db.config";
 import { NextRequest, NextResponse } from "next/server";
 
-export const PUT = async (
+export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) => {
+  { params }: { params: { id: string } }
+) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const { title, description, images, clientName, category, dateCompleted } =
       await req.json();
+
     if (!title || !description || !images || !clientName || !category) {
-      return NextResponse.json({
-        status: 400,
-        error: "Please provide all the fields!",
-      });
+      return NextResponse.json(
+        { status: 400, error: "Please provide all the fields!" },
+        { status: 400 }
+      );
     }
+
     await prisma.projects.update({
-      where: {
-        id: Number(id),
-      },
+      where: { id: Number(id) },
       data: {
         title,
         description,
@@ -31,31 +31,59 @@ export const PUT = async (
 
     return NextResponse.json({ status: 200, success: true });
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
+    console.error("PUT error:", error);
+    return NextResponse.json(
+      { status: 500, error: "Something went wrong" },
+      { status: 500 }
+    );
   }
-};
-
-export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  await prisma.projects.delete({
-    where: {
-      id: Number(id),
-    },
-  });
-  return NextResponse.json({ status: 200 });
 }
 
-export const GET = async (
+export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) => {
-  const { id } = await params;
-  const project = await prisma.projects.findUnique({
-    where: {
-      id: Number(id),
-    },
-  });
-  return NextResponse.json({ success: true, project });
-};
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+
+    await prisma.projects.delete({
+      where: { id: Number(id) },
+    });
+
+    return NextResponse.json({ status: 200, success: true });
+  } catch (error) {
+    console.error("DELETE error:", error);
+    return NextResponse.json(
+      { status: 500, error: "Failed to delete project" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+
+    const project = await prisma.projects.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!project) {
+      return NextResponse.json(
+        { status: 404, error: "Project not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ success: true, project });
+  } catch (error) {
+    console.error("GET error:", error);
+    return NextResponse.json(
+      { status: 500, error: "Failed to fetch project" },
+      { status: 500 }
+    );
+  }
+}
