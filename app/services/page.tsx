@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Service } from "@/types/Service";
 import Image from "next/image";
-import img from "@/public/Hero-Service-Background.png";
+import img from "@/public/pexels-rquiros-2219024.jpg";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -32,25 +32,18 @@ const Services = () => {
 
   return (
     <div>
-      <div className="relative w-full mb-12">
-        <Image
-          src={img}
-          alt="Services"
-          className="object-cover"
-          // priority
-          loading="lazy"
-        />
-        <p className="absolute top-1/2 left-50 text-white font-semibold text-4xl">
+      {/* Hero Image */}
+      <div className="relative w-full h-[200px] sm:h-[200px] md:h-[250px] lg:h-[250px] mb-12">
+        <Image src={img} alt="Services" className="object-cover" fill />
+
+        {/* Text overlay: only on medium+ screens */}
+        <p className="md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-semibold text-3xl sm:text-4xl md:text-5xl text-center">
           Services Archive
         </p>
-        <div className="bg-white py-6 px-12 absolute bottom-[-60px] right-50 shadow-black/40 shadow-xl">
-          <p className="text-[#00215B] text-sm mb-3">CALL US TODAY</p>
-          <p className="text-[#00215B] text-2xl font-semibold mt-3]">
-            +1 123 456 789
-          </p>
-        </div>
       </div>
-      <div className="min-h-screen bg-gray-50 py-20 px-12">
+
+      {/* Services List */}
+      <div className="min-h-screen py-20 px-4 sm:px-8 md:px-12">
         <Toaster />
 
         {services.length === 0 ? (
@@ -62,13 +55,13 @@ const Services = () => {
             {services.map((s, idx) => (
               <div
                 key={s.id}
-                className="grid grid-cols-1 md:grid-cols-2 bg-white overflow-hidden shadow-lg"
+                className="grid grid-cols-1 md:grid-cols-2 bg-white overflow-hidden shadow-lg rounded-md"
               >
                 {/* IMAGE */}
                 <div
                   className={`${
                     idx % 2 === 0 ? "order-1" : "order-2"
-                  } w-full h-full`}
+                  } w-full h-64 sm:h-80 md:h-auto`}
                 >
                   {s.imageUrl && s.imageUrl[0] && (
                     <img
@@ -81,14 +74,14 @@ const Services = () => {
 
                 {/* CONTENT */}
                 <div
-                  className={`flex flex-col justify-center items-start p-8 bg-[#D2153D] text-white  ${
+                  className={`flex flex-col justify-center items-start p-6 sm:p-8 bg-[#D2153D] text-white ${
                     idx % 2 === 0 ? "order-2" : "order-1"
                   }`}
                 >
-                  <h2 className="text-2xl font-bold mb-4 w-full break-words">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-4 break-words">
                     {s.title.slice(0, 30)}...
                   </h2>
-                  <p className="mb-6 w-full break-words">
+                  <p className="mb-6 break-words text-sm sm:text-base">
                     {s.description.slice(0, 150)}...
                   </p>
                   <Button

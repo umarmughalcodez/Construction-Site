@@ -16,22 +16,20 @@ const Footer = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  const staggerLinks = {
+  const staggerChildren = {
     hidden: {},
     visible: {
-      transition: {
-        staggerChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.15 },
     },
   };
 
   return (
-    <motion.div
+    <motion.footer
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="w-full text-white h-auto flex bottom-0"
+      className="w-full flex flex-col md:flex-row text-white"
     >
       {/* Left Section */}
       <motion.div
@@ -39,33 +37,31 @@ const Footer = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="bg-[#D2153D] w-[30%] grid place-items-center"
+        className="bg-[#D2153D] w-full md:w-1/3 flex flex-col items-center justify-center p-6"
       >
-        <div className="grid place-items-center w-[80%] py-4">
-          <span
-            className="text-2xl m-4 cursor-pointer"
-            onClick={() => router.push("/")}
-          >
-            Logo
-          </span>
-          <div className="flex-col flex mt-5 mb-5">
-            <span className="font-light text-xs">CALL US TODAY</span>
-            <span className="text-xl font-bold">+1 234 567 098</span>
-          </div>
-          <div className="flex space-x-2">
-            {[FaTwitter, FaFacebookF, TiSocialLinkedin, AiFillYoutube].map(
-              (Icon, i) => (
-                <motion.span
-                  key={i}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="bg-white p-2 rounded-full grid place-items-center"
-                >
-                  <Icon className="text-blue-600" />
-                </motion.span>
-              )
-            )}
-          </div>
+        <span
+          className="text-2xl cursor-pointer mb-4"
+          onClick={() => router.push("/")}
+        >
+          Logo
+        </span>
+        <div className="flex flex-col items-center mb-5">
+          <span className="font-light text-xs">CALL US TODAY</span>
+          <span className="text-xl font-bold">+1 234 567 098</span>
+        </div>
+        <div className="flex space-x-3">
+          {[FaTwitter, FaFacebookF, TiSocialLinkedin, AiFillYoutube].map(
+            (Icon, i) => (
+              <motion.span
+                key={i}
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-white p-2 rounded-full grid place-items-center cursor-pointer"
+              >
+                <Icon className="text-blue-600" />
+              </motion.span>
+            )
+          )}
         </div>
       </motion.div>
 
@@ -75,19 +71,14 @@ const Footer = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="bg-[#00215B] w-[70%] flex-col py-4"
+        className="bg-[#00215B] w-full md:w-2/3 flex flex-col py-6 px-4 md:px-12"
       >
-        <div className="flex justify-center pt-4 space-x-8 pb-4">
-          <motion.div
-            variants={staggerLinks}
-            initial="hidden"
-            whileInView="visible"
-          >
-            <span className="text-xl">Quick Links</span>
-            <motion.div
-              className="flex-col flex space-y-1 text-sm py-5"
-              variants={staggerLinks}
-            >
+        <div className="flex flex-col md:flex-row justify-between mb-3">
+          <motion.div variants={staggerChildren}>
+            <span className="text-2xl font-semibold mb-3 block">
+              Quick Links
+            </span>
+            <motion.div className="flex flex-col space-y-1">
               {[
                 { label: "Our Services", path: "/services" },
                 { label: "Our Projects", path: "/projects" },
@@ -114,12 +105,12 @@ const Footer = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="text-center"
+          className="text-center text-sm md:text-base"
         >
-          All rights reserved Copyright 2025
+          &copy; 2025 All rights reserved.
         </motion.p>
       </motion.div>
-    </motion.div>
+    </motion.footer>
   );
 };
 

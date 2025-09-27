@@ -45,16 +45,13 @@ const QuoteSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       const res = await fetch("/api/sendQuote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
       const data = await res.json();
-
       if (data.success) {
         toast.success("Quote Sent Successfully!");
         setForm({
@@ -68,15 +65,13 @@ const QuoteSection = () => {
         });
       }
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
+      if (error instanceof Error) toast.error(error.message);
     }
   };
 
   return (
-    <motion.div
-      className="w-full h-full flex p-5 space-x-10 mb-14"
+    <motion.section
+      className="w-full p-6 sm:p-10 lg:p-16 bg-gray-50"
       variants={staggerContainer}
       initial="hidden"
       whileInView="visible"
@@ -84,16 +79,24 @@ const QuoteSection = () => {
     >
       <Toaster />
 
-      {/* Left: Form */}
-      <motion.div
-        variants={fadeLeft}
-        className="w-1/2 flex flex-col p-5 items-end"
-      >
-        <div id="appointment">
-          <p className="text-[#D2153D]">APPOINTMENT</p>
-          <p className="text-3xl p-1">Request a Quote</p>
-          <form onSubmit={handleSubmit} className="outline-black max-w-2xs">
-            <motion.div variants={fadeUp} className="flex space-x-3 py-3">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16">
+        {/* Left: Form */}
+        <motion.div
+          variants={fadeLeft}
+          className="w-full lg:w-1/2 bg-white p-6 sm:p-10 shadow-lg rounded-lg"
+        >
+          <div id="appointment" className="mb-6">
+            <p className="text-[#D2153D] font-semibold">APPOINTMENT</p>
+            <h2 className="text-2xl sm:text-3xl font-bold mt-1">
+              Request a Quote
+            </h2>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <Input
                 type="text"
                 name="f_name"
@@ -101,8 +104,7 @@ const QuoteSection = () => {
                 onChange={handleChange}
                 placeholder="First Name *"
                 required
-                className="rounded-none"
-                maxLength={50}
+                className="flex-1 rounded-md"
               />
               <Input
                 type="text"
@@ -110,22 +112,23 @@ const QuoteSection = () => {
                 value={form.l_name}
                 onChange={handleChange}
                 placeholder="Last Name *"
-                className="rounded-none"
                 required
-                maxLength={50}
+                className="flex-1 rounded-md"
               />
             </motion.div>
 
-            <motion.div variants={fadeUp} className="flex space-x-3 py-3">
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <Input
-                type="text"
+                type="email"
                 name="email"
                 value={form.email}
                 onChange={handleChange}
                 placeholder="E-mail *"
                 required
-                className="rounded-none"
-                maxLength={100}
+                className="flex-1 rounded-md"
               />
               <Input
                 type="text"
@@ -134,12 +137,14 @@ const QuoteSection = () => {
                 onChange={handleChange}
                 placeholder="Phone *"
                 required
-                className="rounded-none"
-                maxLength={50}
+                className="flex-1 rounded-md"
               />
             </motion.div>
 
-            <motion.div variants={fadeUp} className="flex space-x-3 py-3">
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <Input
                 type="text"
                 name="postcode"
@@ -147,8 +152,7 @@ const QuoteSection = () => {
                 onChange={handleChange}
                 placeholder="Postcode *"
                 required
-                className="rounded-none"
-                maxLength={20}
+                className="flex-1 rounded-md"
               />
               <Input
                 type="text"
@@ -157,9 +161,7 @@ const QuoteSection = () => {
                 onChange={handleChange}
                 placeholder="Service *"
                 required
-                className="rounded-none"
-                maxLength={1200}
-                minLength={20}
+                className="flex-1 rounded-md"
               />
             </motion.div>
 
@@ -170,57 +172,48 @@ const QuoteSection = () => {
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 placeholder="Message *"
                 required
-                className="rounded-none resize-none scroll"
+                className="rounded-md resize-none"
               />
             </motion.div>
 
-            <br />
             <motion.div variants={fadeUp}>
               <Button
                 type="submit"
                 effect={"expandIcon"}
-                iconPlacement="right"
                 icon={FaArrowRight}
-                className="bg-[#D2153D] hover:bg-[#D2153D] px-3 py-1 cursor-pointer text-white"
+                iconPlacement="right"
+                className="bg-[#D2153D] hover:bg-[#B21435] text-white px-4 py-2 rounded-md w-full sm:w-auto"
               >
                 Appointment
               </Button>
             </motion.div>
           </form>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      {/* Right: Features */}
-      <motion.div
-        variants={fadeRight}
-        className="w-1/2 flex flex-col space-y-4 justify-center items-start"
-      >
+        {/* Right: Features */}
         <motion.div
-          variants={staggerContainer}
-          className="grid place-items-center gap-y-8 p-4"
+          variants={fadeRight}
+          className="w-full lg:w-1/2 flex flex-col justify-center space-y-6"
         >
           {[vector1, vector2, vector3].map((icon, idx) => (
-            <motion.span
+            <motion.div
               key={idx}
               variants={fadeUp}
-              className="flex space-x-4 max-space-sm"
+              className="flex items-start gap-4 bg-white p-4 rounded-lg shadow-md"
             >
-              <Image
-                src={icon}
-                alt="Vector"
-                width={50}
-                height={50}
-                loading="lazy"
-              />
+              <Image src={icon} alt="Feature" width={50} height={50} />
               <div>
-                <p>High Quality Build</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                <p className="font-semibold text-lg">High Quality Build</p>
+                <p className="text-gray-600 text-sm">
+                  We ensure every project is completed with precision, safety,
+                  and durability.
+                </p>
               </div>
-            </motion.span>
+            </motion.div>
           ))}
         </motion.div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </motion.section>
   );
 };
 

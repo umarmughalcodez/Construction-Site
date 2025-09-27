@@ -42,7 +42,7 @@ const ServicesDynamic = () => {
         <Image
           src={img}
           alt="Services"
-          className="object-cover w-full h-64 md:h-96"
+          className="object-cover w-full h-36 md:h-56"
           // priority
           loading="lazy"
         />

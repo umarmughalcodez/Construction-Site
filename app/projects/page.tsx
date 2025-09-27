@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import img from "@/public/Rectangle 1.png";
+import img from "@/public/pexels-enginakyurt-1463917.jpg";
 import { Project } from "@/types/Project";
 import { useRouter } from "next/navigation";
 
@@ -21,45 +21,56 @@ const ProjectsPage = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="relative w-full">
-        <Image
-          src={img}
-          alt="About"
-          className="object-cover"
-          // priority
-          loading="lazy"
-        />
-        <p className="absolute top-1/2 left-50 text-white font-semibold text-4xl">
-          Portfolio Archive
-        </p>
-        <div className="bg-white py-6 px-12 absolute bottom-[-60px] right-50 shadow-black/40 shadow-xl">
-          <p className="text-[#00215B] text-sm mb-3">CALL US TODAY</p>
-          <p className="text-[#00215B] text-2xl font-semibold mt-3]">
-            +1 123 456 789
-          </p>
+      {/* Hero Section */}
+      <div className="relative w-full h-[200px] sm:h-[200px] md:h-[300px] lg:h-[300px]">
+        <Image src={img} alt="About" className="object-cover" fill />
+        <div className="absolute inset-0 flex items-center justify-center px-4 text-center">
+          <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold">
+            Portfolio Archive
+          </h1>
         </div>
       </div>
-      <div className="mt-24 flex items-center justify-center mb-24">
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 px-46 py-12 w-full">
+
+      {/* Projects Grid */}
+      <div className="mt-24 flex justify-center px-4 sm:px-8 md:px-12 mb-24">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-[1200px]">
           {projects.map((p) => (
-            <li key={p.id} className="list-none">
+            <li
+              key={p.id}
+              className="list-none border rounded-xl shadow-lg shadow-gray-600 "
+            >
               <div
-                className="aspect-square relative cursor-pointer group"
-                onClick={() => {
-                  router.push(`/projects/${p.id}`);
-                }}
+                className="relative cursor-pointer group overflow-hidden rounded-md"
+                onClick={() => router.push(`/projects/${p.id}`)}
               >
-                <Image
-                  src={p.imageUrl[0]}
-                  alt={p.title}
-                  className="object-cover "
-                  fill
-                  // priority
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-150 " />
-                <div className="absolute bottom-0 left-0 w-full p-4 text-white text-lg font-semibold duration-500 opacity-0 group-hover:opacity-100 translate-y-full group-hover:translate-y-0 delay-75 max-w-xs">
-                  {p.title.length > 15 ? p.title.slice(0, 15) : p.title}...
+                {/* Project Image */}
+                <div className="aspect-square relative">
+                  <Image
+                    src={p.imageUrl[0]}
+                    alt={p.title}
+                    className="object-cover transition-transform duration-500 group-hover:scale-110 rounded-md"
+                    fill
+                    loading="lazy"
+                  />
+                  {/* Hover overlay for large screens */}
+                  <div className="hidden sm:block absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md" />
+                  <div className="hidden sm:block absolute bottom-0 left-0 w-full p-4 text-white text-lg font-semibold opacity-0 group-hover:opacity-100 translate-y-full group-hover:translate-y-0 transition-all duration-300 rounded-md">
+                    {p.title.length > 20
+                      ? `${p.title.slice(0, 20)}...`
+                      : p.title}
+                  </div>
+                </div>
+
+                {/* Always visible title & category on mobile */}
+                <div className="sm:hidden mt-2 text-left  mx-3 py-3">
+                  <p className="text-[#00215B] font-semibold">
+                    {p.title.length > 25
+                      ? `${p.title.slice(0, 25)}...`
+                      : p.title}
+                  </p>
+                  {p.category && (
+                    <p className="text-gray-500 text-sm mt-1">{p.category}</p>
+                  )}
                 </div>
               </div>
             </li>

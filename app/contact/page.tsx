@@ -1,15 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import img from "@/public/Rectangle 1 (3).png";
 import Image from "next/image";
+import img from "@/public/img11.png";
 import msg from "@/public/chat.svg";
 import phone from "@/public/telephone.svg";
+import map from "@/public/Map.png";
 import { FaArrowRight } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import toast, { Toaster } from "react-hot-toast";
-import map from "@/public/Map.png";
 
 interface formState {
   f_name: string;
@@ -39,16 +39,13 @@ const ContactPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       const res = await fetch("/api/sendQuote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
       const data = await res.json();
-
       if (data.success) {
         toast.success("Message Sent Successfully!");
         setForm({
@@ -62,42 +59,40 @@ const ContactPage = () => {
         });
       }
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
+      if (error instanceof Error) toast.error(error.message);
     }
   };
 
   return (
     <div>
       <Toaster />
-      <div className="relative w-full mb-20">
+
+      {/* Hero Section */}
+      <div className="relative w-full h-[150px] sm:h-[150px] md:h-[200px] lg:h-[200px] mb-20">
         <Image
           src={img}
           alt="Header"
           className="object-cover"
-          // priority
+          fill
           loading="lazy"
         />
-        <p className="absolute top-1/2 left-50 text-white font-semibold text-4xl">
+
+        {/* Overlay Text: Hidden on small screens */}
+        <p className="md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-700 font-semibold text-3xl sm:text-4xl md:text-5xl text-center">
           Contact Us
         </p>
-        <div className="bg-white py-6 px-12 absolute bottom-[-60px] right-50 shadow-black/40 shadow-xl">
-          <p className="text-[#00215B] text-sm mb-3">CALL US TODAY</p>
-          <p className="text-[#00215B] text-2xl font-semibold mt-3]">
-            +1 123 456 789
-          </p>
-        </div>
       </div>
+
+      {/* Contact Form Section */}
       <div
         id="appointment"
-        className="w-full flex flex-col items-center justify-center"
+        className="w-full flex flex-col items-center justify-center px-4 sm:px-8 md:px-16"
       >
         <form
           onSubmit={handleSubmit}
-          className="outline-black w-[70%] p-2 my-10"
+          className="w-full max-w-4xl p-4 sm:p-6 md:p-8 bg-white shadow-md rounded-md mb-12"
         >
-          <div className="flex space-x-3 py-3">
+          <div className="flex flex-col sm:flex-row sm:space-x-3 py-2">
             <Input
               type="text"
               name="f_name"
@@ -105,7 +100,7 @@ const ContactPage = () => {
               onChange={handleChange}
               placeholder="First Name *"
               required
-              className="rounded-none"
+              className="rounded-none mb-2 sm:mb-0"
               maxLength={50}
             />
             <Input
@@ -114,12 +109,13 @@ const ContactPage = () => {
               value={form.l_name}
               onChange={handleChange}
               placeholder="Last Name *"
-              className="rounded-none"
               required
+              className="rounded-none"
               maxLength={50}
             />
           </div>
-          <div className="flex space-x-3 py-3">
+
+          <div className="flex flex-col sm:flex-row sm:space-x-3 py-2">
             <Input
               type="text"
               name="email"
@@ -127,7 +123,7 @@ const ContactPage = () => {
               onChange={handleChange}
               placeholder="E-mail *"
               required
-              className="rounded-none"
+              className="rounded-none mb-2 sm:mb-0"
               maxLength={100}
             />
             <Input
@@ -141,7 +137,8 @@ const ContactPage = () => {
               maxLength={50}
             />
           </div>
-          <div className="flex space-x-3 py-3">
+
+          <div className="flex flex-col sm:flex-row sm:space-x-3 py-2">
             <Input
               type="text"
               name="postcode"
@@ -149,7 +146,7 @@ const ContactPage = () => {
               onChange={handleChange}
               placeholder="Postcode *"
               required
-              className="rounded-none"
+              className="rounded-none mb-2 sm:mb-0"
               maxLength={20}
             />
             <Input
@@ -164,71 +161,66 @@ const ContactPage = () => {
               minLength={20}
             />
           </div>
+
           <Textarea
             name="message"
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
             placeholder="Message *"
             required
-            className="rounded-none resize-none scroll"
+            className="rounded-none resize-none mt-2"
           />
-          <br />
-          <Button
-            type="submit"
-            effect={"expandIcon"}
-            iconPlacement="right"
-            icon={FaArrowRight}
-            className="bg-[#D2153D] hover:bg-[#D2153D] px-3 py-1 cursor-pointer text-white "
-          >
-            Submit Message
-          </Button>
+
+          <div className="mt-4">
+            <Button
+              type="submit"
+              effect={"expandIcon"}
+              iconPlacement="right"
+              icon={FaArrowRight}
+              className="bg-[#D2153D] hover:bg-[#B21435] text-white px-4 py-2"
+            >
+              Submit Message
+            </Button>
+          </div>
         </form>
-        <div className="relative w-[70%]">
+
+        {/* Map & Contact Info */}
+        <div className="relative w-full max-w-6xl flex flex-col items-center mb-12">
           <Image
             src={map}
             alt="Address Image"
-            className="object-cover"
+            className="object-cover w-full h-80 rounded-md shadow-md"
             loading="lazy"
           />
-          <div className="w-full mt-5 flex space-x-2 items-center justify-center mb-6">
-            <div className="bg-white w-1/2 p-2 border-l-6 border-[#D2153D] shadow-black/40 shadow-lg max-w-sm">
-              <p className="ext-black/50">COMPANY ADDRESS</p>
-              <p className="text-[#00215B] text-2xl">
-                Themeforest, Envato HQ 24 Fifth st., Los Angleles, USA
+
+          <div className="w-full mt-5 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 justify-center">
+            <div className="bg-white w-full md:w-1/2 p-4 border-l-4 border-[#D2153D] shadow-md rounded-md">
+              <p className="text-black/50 text-sm">COMPANY ADDRESS</p>
+              <p className="text-[#00215B] text-lg sm:text-2xl font-semibold">
+                Themeforest, Envato HQ 24 Fifth St., Los Angeles, USA
               </p>
             </div>
 
-            <div className="flex space-x-5">
-              <div className="flex items-center space-y-2 space-x-3 bg-white p-3">
-                <div className="bg-[#D2153D] w-10 h-10 p-2">
-                  <Image
-                    src={phone}
-                    alt="Phone"
-                    width={30}
-                    height={30}
-                    loading="lazy"
-                  />
+            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 w-full md:w-1/2">
+              <div className="flex items-center space-x-3 bg-white p-3 shadow-md rounded-md">
+                <div className="bg-[#D2153D] w-10 h-10 flex items-center justify-center rounded">
+                  <Image src={phone} alt="Phone" width={30} height={30} />
                 </div>
                 <div>
                   <p className="text-xs">COMPANY PHONES</p>
-                  <p className="text-xl text-[#00215B]">+1 234 5678 098</p>
-                  <p className="text-xl text-[#00215B]">+1 234 5678 098</p>
+                  <p className="text-lg text-[#00215B]">+1 234 5678 098</p>
+                  <p className="text-lg text-[#00215B]">+1 234 5678 098</p>
                 </div>
               </div>
-              <div className="flex items-center space-y-2 space-x-3 bg-white p-3">
-                <div className="bg-[#00215B] w-10 h-10 p-2">
-                  <Image
-                    src={msg}
-                    alt="Phone"
-                    width={30}
-                    height={30}
-                    loading="lazy"
-                  />
+
+              <div className="flex items-center space-x-3 bg-white p-3 shadow-md rounded-md">
+                <div className="bg-[#00215B] w-10 h-10 flex items-center justify-center rounded">
+                  <Image src={msg} alt="Email" width={30} height={30} />
                 </div>
                 <div>
                   <p className="text-xs">EMAILS</p>
-                  <p className="text-xl text-[#00215B]">test@gmail.com</p>
-                  <p className="text-xl text-[#00215B]">test@gmail.com</p>
+                  <p className="text-lg text-[#00215B]">test@gmail.com</p>
+                  <p className="text-lg text-[#00215B]">test@gmail.com</p>
                 </div>
               </div>
             </div>

@@ -13,26 +13,26 @@ const Project = () => {
     const res = await fetch(`/api/projects/${params.id}`);
     const data = await res.json();
     setProject(data.project);
-  }, []);
+  }, [params.id]);
+
   useEffect(() => {
     fetchProject();
   }, [fetchProject]);
 
   return (
     <div>
-      <div className="relative w-full mb-10">
-        <Image
-          src={img}
-          alt="About"
-          className="object-cover"
-          // priority
-          loading="lazy"
-        />
-        <p className="absolute top-1/2 left-50 text-white font-semibold text-4xl">
+      {/* Hero Image */}
+      <div className="relative w-full h-[250px] sm:h-[250px] md:h-[300px] lg:h-[300px] mb-10">
+        <Image src={img} alt="About" className="object-cover" fill />
+
+        {/* Text overlay only on medium+ screens */}
+        <p className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-semibold text-3xl sm:text-4xl md:text-5xl text-center">
           Single Project
         </p>
       </div>
-      <div className="flex justify-center items-center min-h-screen  py-12 w-full px-16">
+
+      {/* Project Details */}
+      <div className="flex justify-center items-center min-h-screen py-12 w-full px-4 sm:px-8 lg:px-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-14 max-w-6xl w-full">
           {/* LEFT SIDE */}
           <div>
@@ -88,7 +88,6 @@ const Project = () => {
         </div>
       </div>
     </div>
-    // );
   );
 };
 
