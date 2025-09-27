@@ -44,6 +44,14 @@ const Navbar = () => {
           >
             PROJECTS
           </Button>
+          <Button
+            effect={"hoverUnderline"}
+            variant={"link"}
+            className="p-0 text-[#00215B]"
+            onClick={() => redirect("/about/#appointment")}
+          >
+            GET A QUOTE
+          </Button>
         </div>
         <div className="flex space-x-3 items-center">
           <FaTwitter className="text-[#00215B]" />
@@ -82,6 +90,22 @@ const Navbar = () => {
           >
             Services
           </Button>{" "}
+          <Button
+            effect={"hoverUnderline"}
+            variant={"link"}
+            className="p-0 text-[#00215B]"
+            onClick={() => redirect("/about")}
+          >
+            About
+          </Button>
+          <Button
+            effect={"hoverUnderline"}
+            variant={"link"}
+            className="p-0 text-[#00215B]"
+            onClick={() => redirect("/testimonials")}
+          >
+            Testimonials
+          </Button>
           <Button
             effect={"hoverUnderline"}
             variant={"link"}

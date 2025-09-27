@@ -85,13 +85,15 @@ const Footer = () => {
           >
             <span className="text-xl">Quick Links</span>
             <motion.div
-              className="flex-col flex space-y-3 text-sm py-5"
+              className="flex-col flex space-y-1 text-sm py-5"
               variants={staggerLinks}
             >
               {[
                 { label: "Our Services", path: "/services" },
                 { label: "Our Projects", path: "/projects" },
                 { label: "Contact Us", path: "/contact" },
+                { label: "About Us", path: "/about" },
+                { label: "Book an Appointment", path: "/about/#appointment" },
               ].map((link, i) => (
                 <motion.div key={i} variants={fadeUp}>
                   <Button
