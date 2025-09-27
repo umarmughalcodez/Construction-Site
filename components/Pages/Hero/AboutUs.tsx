@@ -1,4 +1,6 @@
 // /components/Pages/Hero/AboutUs.tsx
+"use client";
+
 import React from "react";
 import RoofingServices from "./RoofingServices";
 import hazard from "@/public/Group 53.svg";
@@ -12,21 +14,28 @@ import About2 from "./About2";
 const AboutUs = () => {
   return (
     <>
-      <div className="mt-36 w-full h-auto grid place-items-center pt-10 pb-10 p-8">
-        <p className="text-2xl font-semibold p-3">
-          Our Comprehensive Roofing Services
-        </p>
-        <p className="max-w-xl text-center mt-5 mb-5">
-          From residential projects to commercial developments, we deliver
-          excellence in every detail with our complete roofing solutions
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
+      <div className="w-[100%] h-[1px] bg-gradient-to-r from-transparent via-gray-400 to-transparent" />
+      <section className="mt-16 sm:mt-20 lg:mt-26 w-full h-auto flex flex-col items-center px-4 sm:px-8 lg:px-12 py-6">
+        {/* Section Heading */}
+        <div className="text-center max-w-2xl">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#00215B]">
+            Our Comprehensive Roofing Services
+          </h2>
+          <p className="text-gray-600 mt-4 text-sm sm:text-base md:text-lg">
+            From residential homes to large commercial projects, we deliver
+            durable roofing solutions that combine functionality, safety, and
+            modern design.
+          </p>
+        </div>
+
+        {/* Service Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 w-full max-w-7xl">
           <RoofingServices
-            image={hazard.src} // Pass URL string
+            image={hazard.src}
             heading="New Roof Installation"
             text={[
               "Premium Metal Roofing",
-              "Color bond Solutions",
+              "Colorbond Solutions",
               "Custom Tile Roofing",
             ]}
           />
@@ -43,7 +52,7 @@ const AboutUs = () => {
             image={recover.src}
             heading="Complete Restoration"
             text={[
-              "Professional Cleaning",
+              "Professional Roof Cleaning",
               "Surface Recoating",
               "Ridge Cap Repairs",
             ]}
@@ -52,11 +61,9 @@ const AboutUs = () => {
             image={carpentry.src}
             heading="Carpentry Services"
             text={[
-              "Door Installation",
-              "Custom Stair Building",
+              "Custom Staircases",
               "Timber Framing",
-              "Deck Construction",
-              "Alfresco Construction",
+              "Door & Window Installation",
               "Timber Repairs",
             ]}
           />
@@ -64,24 +71,26 @@ const AboutUs = () => {
             image={services.src}
             heading="Renovation Services"
             text={[
-              "Complete Home Renovations",
+              "Full Home Renovations",
               "Kitchen & Bathroom Remodeling",
-              "Commercial Renovations",
+              "Commercial Fit-outs",
             ]}
           />
           <RoofingServices
             image={renovate.src}
             heading="Renovation Carpentry"
             text={[
-              "Residential Renovations",
-              "Commercial Carpentry",
               "Interior Woodwork",
               "Exterior Carpentry",
+              "Residential Renovations",
+              "Commercial Carpentry",
               "Owner Builder Support",
             ]}
           />
         </div>
-      </div>
+      </section>
+
+      {/* Additional About Section */}
       <About2 />
     </>
   );

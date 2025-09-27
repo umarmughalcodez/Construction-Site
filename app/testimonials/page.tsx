@@ -1,14 +1,14 @@
 "use client";
+
 import React from "react";
 import { testimonials } from "@/data/testimonials";
 import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import img from "@/public/testimonials img.jpg";
 
 type Props = {
   limit?: number;
-  showBtn: boolean;
 };
 
 export default function Testimonials({ limit }: Props) {
@@ -16,22 +16,29 @@ export default function Testimonials({ limit }: Props) {
 
   return (
     <>
-      <div className="relative w-full h-[150px] sm:h-[150px] md:h-[200px] lg:h-[200px] mb-20">
-        <Image
-          src={img}
-          alt="Header"
-          className="object-cover"
-          fill
-          loading="lazy"
-        />
+      {/* ✅ Show header image only if showImg is true */}
+      {window.location.pathname == "/testimonials" && (
+        <div className="relative w-full h-[150px] sm:h-[150px] md:h-[200px] lg:h-[200px] mb-20">
+          <Image
+            src={img}
+            alt="Testimonials Header"
+            className="object-cover"
+            fill
+            priority
+          />
+          <p
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+            text-white font-semibold text-3xl sm:text-4xl md:text-5xl text-center"
+          >
+            Testimonials
+          </p>
+        </div>
+      )}
 
-        {/* Overlay Text: Hidden on small screens */}
-        <p className="md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-semibold text-3xl sm:text-4xl md:text-5xl text-center">
-          Testimonials
-        </p>
-      </div>
+      {/* ✅ Testimonials Section */}
       <section className="py-6">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          {/* Section Title */}
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">
               What Our Clients Say
@@ -41,7 +48,7 @@ export default function Testimonials({ limit }: Props) {
             </p>
           </div>
 
-          {/* Grid of testimonials */}
+          {/* Testimonials Grid */}
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {data.map((item) => (
               <div
@@ -68,12 +75,11 @@ export default function Testimonials({ limit }: Props) {
             ))}
           </div>
 
-          {/* View All Button */}
+          {/* View All Button (only when limited) */}
           {limit && (
             <div className="mt-10 text-center">
               <Button
-                className="bg-[#D2153D] hover:bg-[#D2153D] text-white rounded-md hover:scale-105 transition-all delay-75"
-                effect={"shineHover"}
+                className="bg-[#D2153D] hover:bg-[#B01032] text-white rounded-md hover:scale-105 transition-all delay-75"
                 onClick={() => redirect("/testimonials")}
               >
                 View All

@@ -40,6 +40,7 @@ export default function ResponsiveProjects() {
   return (
     <section className="py-16 px-6">
       <div className="mx-auto max-w-7xl">
+        {/* Header + Filters */}
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold">Our Projects</h2>
@@ -66,64 +67,45 @@ export default function ResponsiveProjects() {
           </div>
         </div>
 
-        {/* DESKTOP / LAPTOP GRID */}
-        <div className="hidden sm:grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((p) => (
-            <motion.article
-              key={p.id}
-              layout
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden rounded-2xl bg-white shadow cursor-pointer"
-              onClick={() => {
-                setPreview(p);
-                setCurrentImage(0);
-              }}
-            >
-              <Image
-                src={p.imageUrl[0]}
-                alt={p.title}
-                width={500}
-                height={300}
-                className="h-56 w-full object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">{p.title}</h3>
-                <p className="mt-1 text-sm text-gray-600">{p.description}</p>
-                <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/30 px-3 py-1 text-xs">
-                  <span className="font-medium">{p.category}</span>
+        {/* UNIVERSAL AUTO-SCROLL CAROUSEL (mobile + desktop) */}
+        <div className="overflow-hidden relative">
+          <motion.div
+            className="flex gap-6 py-4"
+            initial={{ x: 0 }}
+            animate={{ x: ["0%", "-100%"] }}
+            transition={{
+              repeat: Infinity,
+              duration: 25, // Adjust speed
+              ease: "linear",
+            }}
+          >
+            {[...filteredProjects, ...filteredProjects].map((p, i) => (
+              <motion.article
+                key={p.id + "-" + i}
+                className="
+                  relative flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white shadow-md shadow-gray-500 
+                  min-w-[80%] sm:min-w-[300px] sm:max-w-sm
+                "
+                whileHover={{ scale: 1.05 }}
+                onClick={() => {
+                  setPreview(p);
+                  setCurrentImage(0);
+                }}
+              >
+                <Image
+                  src={p.imageUrl[0]}
+                  alt={p.title}
+                  width={400}
+                  height={250}
+                  className="h-48 w-full object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold">{p.title}</h3>
+                  <p className="text-sm text-gray-500">{p.category}</p>
                 </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-
-        {/* MOBILE PROJECT GALLERY */}
-        <div className="sm:hidden flex gap-4 overflow-x-auto py-4">
-          {filteredProjects.map((p) => (
-            <motion.div
-              key={p.id}
-              layout
-              className="min-w-[250px] relative overflow-hidden rounded-2xl shadow cursor-pointer flex-shrink-0"
-              onClick={() => {
-                setPreview(p);
-                setCurrentImage(0);
-              }}
-            >
-              <Image
-                src={p.imageUrl[0]}
-                alt={p.title}
-                width={250}
-                height={200}
-                className="object-cover h-48 w-full transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/30" />
-              <div className="absolute bottom-0 left-0 p-3 text-white text-sm font-semibold">
-                {p.title}
-              </div>
-            </motion.div>
-          ))}
+              </motion.article>
+            ))}
+          </motion.div>
         </div>
       </div>
 
