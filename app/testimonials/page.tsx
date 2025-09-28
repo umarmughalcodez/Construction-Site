@@ -11,13 +11,13 @@ type Props = {
   limit?: number;
 };
 
-export default function Testimonials({ limit }: Props) {
+export const Testimonials = ({ limit }: Props) => {
   const data = limit ? testimonials.slice(0, limit) : testimonials;
 
   return (
     <>
       {/* ✅ Show header image only if showImg is true */}
-      {/* {window.location.pathname == "/testimonials" && (
+      {window.location.pathname == "/testimonials" && (
         <div className="relative w-full h-[150px] sm:h-[150px] md:h-[200px] lg:h-[200px] mb-20">
           <Image
             src={img}
@@ -33,7 +33,7 @@ export default function Testimonials({ limit }: Props) {
             Testimonials
           </p>
         </div>
-      )} */}
+      )}
 
       {/* ✅ Testimonials Section */}
       <section className="py-6">
@@ -91,3 +91,5 @@ export default function Testimonials({ limit }: Props) {
     </>
   );
 }
+
+export default Testimonials;
