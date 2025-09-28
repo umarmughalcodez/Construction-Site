@@ -26,10 +26,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-arp="">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </head>
       <body className={`${kanit.className}`}>
         <div className="flex flex-col min-h-screen">
           <Navbar />
