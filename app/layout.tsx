@@ -29,7 +29,6 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
       </head>
       <body className={`${kanit.className}`}>
         <div className="flex flex-col min-h-screen">

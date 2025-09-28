@@ -49,6 +49,7 @@ const Navbar = () => {
           <Button
             effect={"ringHover"}
             className="rounded-md bg-[#D2153D] hover:bg-[#00215B]"
+            onClick={() => redirect("/about#appointment")}
           >
             Book Appointment
           </Button>
