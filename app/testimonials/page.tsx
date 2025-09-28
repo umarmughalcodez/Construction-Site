@@ -1,9 +1,9 @@
 "use client";
 
-import React, { FC } from "react";
+import React from "react";
 import { testimonials } from "@/data/testimonials";
 import { Button } from "@/components/ui/button";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import Image from "next/image";
 import img from "@/public/testimonials img.jpg";
 
@@ -11,13 +11,14 @@ interface Props {
   limit?: number;
 }
 
-export const Testimonials: FC<Props> = ({ limit }) => {
+export default function Testimonials({ limit }: Props) {
   const data = limit ? testimonials.slice(0, limit) : testimonials;
+  const pathname = usePathname();
 
   return (
     <>
-      {/* ✅ Show header image only if showImg is true */}
-      {window.location.pathname == "/testimonials" && (
+      {/* ✅ Show header image only if path is /testimonials */}
+      {pathname === "/testimonials" && (
         <div className="relative w-full h-[150px] sm:h-[150px] md:h-[200px] lg:h-[200px] mb-20">
           <Image
             src={img}
@@ -56,9 +57,11 @@ export const Testimonials: FC<Props> = ({ limit }) => {
                 className="rounded-xl bg-white p-6 shadow-md hover:shadow-lg transition"
               >
                 <div className="flex items-center gap-4">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
+                    width={56}
+                    height={56}
                     className="h-14 w-14 rounded-full object-cover"
                   />
                   <div>
@@ -90,6 +93,4 @@ export const Testimonials: FC<Props> = ({ limit }) => {
       </section>
     </>
   );
-};
-
-export default Testimonials;
+}
