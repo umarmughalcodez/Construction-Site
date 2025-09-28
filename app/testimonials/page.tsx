@@ -1,17 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import { testimonials } from "@/data/testimonials";
 import { Button } from "@/components/ui/button";
 import { redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import img from "@/public/testimonials img.jpg";
 
-type Props = {
+interface Props {
   limit?: number;
-};
+}
 
-export const Testimonials = ({ limit }: Props) => {
+export const Testimonials: FC<Props> = ({ limit }) => {
   const data = limit ? testimonials.slice(0, limit) : testimonials;
 
   return (
@@ -90,6 +90,6 @@ export const Testimonials = ({ limit }: Props) => {
       </section>
     </>
   );
-}
+};
 
 export default Testimonials;
