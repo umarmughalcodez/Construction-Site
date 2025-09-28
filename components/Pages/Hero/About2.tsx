@@ -17,6 +17,7 @@ import bg2 from "@/public/bg (2).png";
 const About2 = () => {
   return (
     <>
+      <div className="w-[100%] h-[1px] bg-gradient-to-r from-transparent via-gray-400 to-transparent mt-10" />
       {/* Top Section */}
       <section className="w-full h-auto text-[#00215B] grid place-items-center px-4 md:px-8">
         <div className="py-14 w-full max-w-7xl flex flex-col md:flex-row items-center justify-between gap-10">

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Project } from "@/types/Project";
 
@@ -9,21 +10,23 @@ export default function ResponsiveProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [preview, setPreview] = useState<Project | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
-  const [filter, setFilter] = useState<"All" | string>("All");
 
-  // Fetch projects from API
   const fetchProjects = async () => {
-    const res = await fetch("/api/projects");
-    const data = await res.json();
-    setProjects(data);
+    try {
+      const res = await fetch("/api/projects");
+      const data = await res.json();
+      setProjects(data);
+    } catch (error) {
+      console.error("Failed to fetch projects:", error);
+    }
   };
 
   useEffect(() => {
     fetchProjects();
   }, []);
 
-  const filteredProjects =
-    filter === "All" ? projects : projects.filter((p) => p.category === filter);
+  // ✅ Show only first 3 projects
+  const topProjects = projects.slice(0, 3);
 
   const nextImage = () => {
     if (!preview) return;
@@ -40,72 +43,48 @@ export default function ResponsiveProjects() {
   return (
     <section className="py-16 px-6">
       <div className="mx-auto max-w-7xl">
-        {/* Header + Filters */}
-        <div className="mb-6 flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">Our Projects</h2>
-            <p className="mt-1 text-sm text-gray-500">
-              A curated selection of our work
-            </p>
-          </div>
-
-          {/* Category filter */}
-          <div className="hidden sm:flex gap-2">
-            {["All", "Residential", "Commercial", "Renovation"].map((c) => (
-              <button
-                key={c}
-                onClick={() => setFilter(c)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                  filter === c
-                    ? "bg-primary-600 text-white"
-                    : "bg-white/60 text-slate-700"
-                }`}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
+        {/* Header */}
+        <div className="mb-8 text-center ">
+          <h2 className="text-4xl font-bold text-[#00215B]">Our Projects</h2>
+          <p className="mt-3 text-lg text-gray-500">
+            A curated selection of our work
+          </p>
         </div>
 
-        {/* UNIVERSAL AUTO-SCROLL CAROUSEL (mobile + desktop) */}
-        <div className="overflow-hidden relative">
-          <motion.div
-            className="flex gap-6 py-4"
-            initial={{ x: 0 }}
-            animate={{ x: ["0%", "-100%"] }}
-            transition={{
-              repeat: Infinity,
-              duration: 25, // Adjust speed
-              ease: "linear",
-            }}
+        {/* Grid of 3 projects */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {topProjects.map((p) => (
+            <article
+              key={p.id}
+              className="rounded-2xl overflow-hidden shadow-md shadow-gray-300 bg-white cursor-pointer hover:shadow-lg transition"
+              onClick={() => {
+                setPreview(p);
+                setCurrentImage(0);
+              }}
+            >
+              <Image
+                src={p.imageUrl[0]}
+                alt={p.title}
+                width={400}
+                height={250}
+                className="h-48 w-full object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">{p.title}</h3>
+                <p className="text-sm text-gray-500">{p.category}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* View All button */}
+        <div className="mt-10 text-center">
+          <Link
+            href="/projects"
+            className="inline-block px-4 py-2 rounded-lg bg-[#00215B] text-white hover:bg-[#00235B] transition"
           >
-            {[...filteredProjects, ...filteredProjects].map((p, i) => (
-              <motion.article
-                key={p.id + "-" + i}
-                className="
-                  relative flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-white shadow-md shadow-gray-500 
-                  min-w-[80%] sm:min-w-[300px] sm:max-w-sm
-                "
-                whileHover={{ scale: 1.05 }}
-                onClick={() => {
-                  setPreview(p);
-                  setCurrentImage(0);
-                }}
-              >
-                <Image
-                  src={p.imageUrl[0]}
-                  alt={p.title}
-                  width={400}
-                  height={250}
-                  className="h-48 w-full object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold">{p.title}</h3>
-                  <p className="text-sm text-gray-500">{p.category}</p>
-                </div>
-              </motion.article>
-            ))}
-          </motion.div>
+            View All Projects
+          </Link>
         </div>
       </div>
 
@@ -124,6 +103,7 @@ export default function ResponsiveProjects() {
               exit={{ scale: 0.95 }}
               className="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden shadow-lg"
             >
+              {/* Image section */}
               <div className="relative w-full h-96 bg-gray-200">
                 <Image
                   src={preview.imageUrl[currentImage]}
@@ -149,6 +129,7 @@ export default function ResponsiveProjects() {
                 )}
               </div>
 
+              {/* Content */}
               <div className="p-6">
                 <h3 className="text-2xl font-bold">{preview.title}</h3>
                 <p className="mt-2 text-gray-700">{preview.description}</p>
@@ -157,24 +138,25 @@ export default function ResponsiveProjects() {
                 </p>
 
                 <div className="mt-4 flex gap-3">
-                  <a
-                    href="#contact"
-                    className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+                  <Link
+                    href="/contact"
+                    className="px-4 py-2 border rounded-lg hover:bg-gray-50"
                   >
                     Contact
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href={`/projects/${preview.id}`}
                     className="px-4 py-2 border rounded-lg hover:bg-gray-50"
                   >
                     Explore Project
-                  </a>
+                  </Link>
                 </div>
               </div>
 
+              {/* Close button */}
               <button
                 onClick={() => setPreview(null)}
-                className="absolute top-3 right-3 text-white bg-black/50 rounded-full p-2 hover:bg-black/70"
+                className="absolute top-3 right-3 text-white bg-[#00215B] py-1 rounded-full px-1 hover:bg-[#00215B]"
               >
                 ✕
               </button>

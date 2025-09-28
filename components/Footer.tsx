@@ -6,6 +6,8 @@ import { TiSocialLinkedin } from "react-icons/ti";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import logo from "@/public/Logo.png";
 
 const Footer = () => {
   const router = useRouter();
@@ -29,7 +31,7 @@ const Footer = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="w-full flex flex-col md:flex-row text-white"
+      className="w-full flex flex-col md:flex-row text-white mt-6"
     >
       {/* Left Section */}
       <motion.div
@@ -39,15 +41,23 @@ const Footer = () => {
         viewport={{ once: true }}
         className="bg-[#D2153D] w-full md:w-1/3 flex flex-col items-center justify-center p-6"
       >
-        <span
-          className="text-2xl cursor-pointer mb-4"
+        <Image
+          src={logo}
+          alt="Logo Image"
+          width={200}
+          height={10}
           onClick={() => router.push("/")}
-        >
-          Logo
-        </span>
-        <div className="flex flex-col items-center mb-5">
-          <span className="font-light text-xs">CALL US TODAY</span>
-          <span className="text-xl font-bold">+1 234 567 098</span>
+          className="cursor-pointer"
+        />
+
+        <div className="flex flex-col items-center mb-5 mt-5">
+          <span className="font-light text-md">HAVE ANY QUERIES?</span>
+          <span
+            className="text-xl font-bold cursor-pointer"
+            onClick={() => router.push("mailto:tinkrbuild@gmail.com")}
+          >
+            tinkrbuild@gmail.com
+          </span>
         </div>
         <div className="flex space-x-3">
           {[FaTwitter, FaFacebookF, TiSocialLinkedin, AiFillYoutube].map(
@@ -107,7 +117,15 @@ const Footer = () => {
           transition={{ delay: 0.6, duration: 0.8 }}
           className="text-center text-sm md:text-base"
         >
-          &copy; 2025 All rights reserved.
+          &copy; 2025 All rights reserved. Built by{" "}
+          <Button
+            effect={"hoverUnderline"}
+            variant={"link"}
+            className="text-red-500 p-0 font-semibold"
+            onClick={() => window.open("https://umarweb.com/", "_blank")}
+          >
+            UmarWeb
+          </Button>
         </motion.p>
       </motion.div>
     </motion.footer>

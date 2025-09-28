@@ -5,6 +5,8 @@ import { TiSocialLinkedin } from "react-icons/ti";
 import { AiFillYoutube, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { redirect } from "next/navigation";
 import { Button } from "./ui/button";
+import logo from "@/public/Logo.png";
+import Image from "next/image";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,22 +45,28 @@ const Navbar = () => {
             </Button>
           ))}
         </div>
-        <div className="flex space-x-3 items-center text-[#00215B]">
-          <FaTwitter />
-          <FaFacebookF />
-          <TiSocialLinkedin className="text-xl" />
-          <AiFillYoutube className="text-xl" />
+        <div>
+          <Button
+            effect={"ringHover"}
+            className="rounded-md bg-[#D2153D] hover:bg-[#00215B]"
+          >
+            Book Appointment
+          </Button>
         </div>
       </div>
 
+      <div className="w-[100%] h-[1px] bg-gradient-to-r from-transparent via-gray-400 to-transparent mt-3 mb-[-8]" />
+
       {/* Main Navbar */}
-      <div className="flex justify-between items-center w-[90%] mx-auto py-4 md:py-6">
-        <span
-          className="text-3xl font-bold cursor-pointer text-[#00215B]"
+      <div className="flex justify-between items-center w-[90%] mx-auto py-4 md:py-6 ">
+        <Image
+          src={logo}
+          alt="Logo Image"
+          width={200}
+          height={10}
           onClick={() => redirect("/")}
-        >
-          Logo
-        </span>
+          className="cursor-pointer"
+        />
 
         {/* Desktop links */}
         <div className="hidden md:flex space-x-4 text-[#00215B] text-sm">

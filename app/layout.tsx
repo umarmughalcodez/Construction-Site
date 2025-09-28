@@ -12,8 +12,14 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
-  title: "Construction Website",
+  title: "TINKRBUILD - Quality You Can Trust",
   description: "",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({

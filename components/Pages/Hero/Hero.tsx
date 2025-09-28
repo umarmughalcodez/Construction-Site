@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import im1 from "@/public/pexels-mali-69483.jpg";
 import { Button } from "../../ui/button";
 import { FaArrowRight } from "react-icons/fa";
 import general from "@/public/Shape.svg";
@@ -15,17 +14,22 @@ export default function Hero() {
     <section className="relative w-full">
       {/* Hero Background */}
       <div className="relative w-full h-[70vh] sm:h-[80vh] lg:h-screen grid place-items-center">
-        <Image
-          src={im1}
-          alt="Construction site"
-          fill
-          className="object-cover"
-          loading="lazy"
+        {/* Background Video */}
+        <video
+          src="/vid.mp4" // place hero-bg.mp4 inside /public folder
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
         />
+
+        {/* Black Overlay */}
+        <div className="absolute inset-0 bg-black/50 z-10" />
 
         {/* Overlay Content */}
         <motion.div
-          className="w-full flex-col flex items-center justify-center text-center px-4 sm:px-6 md:px-12 z-50"
+          className="w-full flex-col flex items-center justify-center text-center px-4 sm:px-6 md:px-12 z-20"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}

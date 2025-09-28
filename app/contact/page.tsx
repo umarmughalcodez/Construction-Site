@@ -197,30 +197,19 @@ const ContactPage = () => {
             <div className="bg-white w-full md:w-1/2 p-4 border-l-4 border-[#D2153D] shadow-md rounded-md">
               <p className="text-black/50 text-sm">COMPANY ADDRESS</p>
               <p className="text-[#00215B] text-lg sm:text-2xl font-semibold">
-                Themeforest, Envato HQ 24 Fifth St., Los Angeles, USA
+                Themeforest, HQ 24 Fifth St., Los Angeles, USA
               </p>
             </div>
 
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 w-full md:w-1/2">
-              <div className="flex items-center space-x-3 bg-white p-3 shadow-md rounded-md">
-                <div className="bg-[#D2153D] w-10 h-10 flex items-center justify-center rounded">
-                  <Image src={phone} alt="Phone" width={30} height={30} />
-                </div>
-                <div>
-                  <p className="text-xs">COMPANY PHONES</p>
-                  <p className="text-lg text-[#00215B]">+1 234 5678 098</p>
-                  <p className="text-lg text-[#00215B]">+1 234 5678 098</p>
-                </div>
-              </div>
-
               <div className="flex items-center space-x-3 bg-white p-3 shadow-md rounded-md">
                 <div className="bg-[#00215B] w-10 h-10 flex items-center justify-center rounded">
                   <Image src={msg} alt="Email" width={30} height={30} />
                 </div>
                 <div>
                   <p className="text-xs">EMAILS</p>
-                  <p className="text-lg text-[#00215B]">test@gmail.com</p>
-                  <p className="text-lg text-[#00215B]">test@gmail.com</p>
+                  <p className="text-lg text-[#00215B]">tinkrbuild@gmail.com</p>
+                  <p className="text-lg text-[#00215B]">tinkrbuild@gmail.com</p>
                 </div>
               </div>
             </div>
