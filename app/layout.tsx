@@ -15,10 +15,7 @@ export const metadata: Metadata = {
   title: "TINKRBUILD - Quality You Can Trust",
   description: "",
   icons: {
-    icon: [
-      { url: "/favicon.ico", type: "image/x-icon" },
-      { url: "/favicon.png", type: "image/png" },
-    ],
+    icon: "/favicon.ico",
   },
 };
 
@@ -29,6 +26,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-arp="">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+      </head>
       <body className={`${kanit.className}`}>
         <div className="flex flex-col min-h-screen">
           <Navbar />

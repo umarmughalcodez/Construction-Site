@@ -207,8 +207,7 @@ const ContactPage = () => {
                   <Image src={msg} alt="Email" width={30} height={30} />
                 </div>
                 <div>
-                  <p className="text-xs">EMAILS</p>
-                  <p className="text-lg text-[#00215B]">tinkrbuild@gmail.com</p>
+                  <p className="text-xs">EMAIL</p>
                   <p className="text-lg text-[#00215B]">tinkrbuild@gmail.com</p>
                 </div>
               </div>

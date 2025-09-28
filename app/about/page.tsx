@@ -69,7 +69,7 @@ const AboutPage = () => {
               expectations.
             </p>
             <p className="text-[#00215B] text-lg font-semibold">
-              John Doe, <span className="font-medium">CEO</span>
+              Alex Bran, <span className="font-medium">CEO</span>
             </p>
           </div>
         </div>
