@@ -7,17 +7,13 @@ import { redirect, usePathname } from "next/navigation";
 import Image from "next/image";
 import img from "@/public/testimonials img.jpg";
 
-interface Props {
-  limit?: number;
-}
-
-export default function Testimonials({ limit }: Props) {
+export default function TestimonialsSection({ limit }: { limit?: number }) {
   const data = limit ? testimonials.slice(0, limit) : testimonials;
   const pathname = usePathname();
 
   return (
     <>
-      {/* ✅ Show header image only if path is /testimonials */}
+      {/* ✅ Header image only on /testimonials page */}
       {pathname === "/testimonials" && (
         <div className="relative w-full h-[150px] sm:h-[150px] md:h-[200px] lg:h-[200px] mb-20">
           <Image
@@ -39,7 +35,6 @@ export default function Testimonials({ limit }: Props) {
       {/* ✅ Testimonials Section */}
       <section className="py-6">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          {/* Section Title */}
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">
               What Our Clients Say
@@ -49,7 +44,6 @@ export default function Testimonials({ limit }: Props) {
             </p>
           </div>
 
-          {/* Testimonials Grid */}
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {data.map((item) => (
               <div
@@ -78,7 +72,7 @@ export default function Testimonials({ limit }: Props) {
             ))}
           </div>
 
-          {/* View All Button (only when limited) */}
+          {/* ✅ View All button only when limited */}
           {limit && (
             <div className="mt-10 text-center">
               <Button
