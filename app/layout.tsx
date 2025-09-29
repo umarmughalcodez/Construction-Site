@@ -12,11 +12,8 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
-  title: "TINKRBUILD - Quality You Can Trust",
+  title: "TINKR BUILD - Quality You Can Trust",
   description: "",
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({
@@ -26,6 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-arp="">
+      <link rel="icon" href="/favicon.png" />
+
       <body className={`${kanit.className}`}>
         <div className="flex flex-col min-h-screen">
           <Navbar />
