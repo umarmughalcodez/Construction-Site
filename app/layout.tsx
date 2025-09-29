@@ -14,6 +14,9 @@ const kanit = Kanit({
 export const metadata: Metadata = {
   title: "TINKR BUILD - Quality You Can Trust",
   description: "",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
